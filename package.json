@@ -1,0 +1,21 @@
+{
+  "name": "skillforge",
+  "version": "1.0.0",
+  "description": "> A modern, real-time collaborative coding interview platform with video conferencing, code execution, and automated feedback.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammedsuhail364/SkillForge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohammedsuhail364/SkillForge/issues"
+  },
+  "homepage": "https://github.com/mohammedsuhail364/SkillForge#readme"
+}
