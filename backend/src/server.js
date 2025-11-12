@@ -1,23 +1,25 @@
 import express from "express";
 import path from "path";
-import cors from 'cors';
+import cors from "cors";
 
-
-import {serve} from 'inngest/express'
+import { serve } from "inngest/express";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
-import { inngest,functions } from "./lib/inngest.js";
+import { inngest, functions } from "./lib/inngest.js";
 
 const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json());
 // credentials:true meaning -> server allows a browser
-app.use(cors({
-  origin:ENV.CLIENT_URL,credentials:true
-}));
+app.use(
+  cors({
+    origin: ENV.CLIENT_URL,
+    credentials: true,
+  })
+);
 
-app.use("api/inngest",serve({client:inngest,functions}))
+app.use("api/inngest", serve({ client: inngest, functions }));
 app.get("/health", (req, res) => {
   res.status(200).json({
     msg: "success from api",
@@ -42,8 +44,7 @@ const startServer = async () => {
       console.log(`server is running in ${ENV.PORT} port`);
     });
   } catch (error) {
-    console.error("Error starting in server",error);
-    
+    console.error("Error starting in server", error);
   }
 };
 startServer();
