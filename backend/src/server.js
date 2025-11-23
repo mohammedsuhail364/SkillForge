@@ -1,11 +1,13 @@
 import express from "express";
 import path from "path";
 import cors from "cors";
+import chatRoutes from './routes/chatRoutes.js'
 
 import { serve } from "inngest/express";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
 import { inngest, functions } from "./lib/inngest.js";
+import {clerkMiddleware} from '@clerk/express'
 
 const app = express();
 const __dirname = path.resolve();
@@ -18,18 +20,18 @@ app.use(
     credentials: true,
   })
 );
+app.use(clerkMiddleware()) // this adds auth field to request object: req.auth()
 
 app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/chat",chatRoutes)
 app.get("/health", (req, res) => {
   res.status(200).json({
     msg: "success from api",
   });
 });
-app.get("/books", (req, res) => {
-  res.status(200).json({
-    msg: "success from books",
-  });
-});
+
+// when you pass an array of middleware to express, it automatically flattens and executes them sequentially one by one
+
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
   app.get("/{*any}", (req, res) => {
