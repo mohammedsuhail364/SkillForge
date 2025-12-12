@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router";
 import { BookOpenIcon, LayoutDashboardIcon, SparklesIcon } from "lucide-react";
 import { UserButton } from "@clerk/clerk-react";
 
-function Navbar() {
+function NavBar() {
   const location = useLocation();
 
   console.log(location);
@@ -74,4 +74,4 @@ function Navbar() {
     </nav>
   );
 }
-export default Navbar;
+export default NavBar;
