@@ -9,7 +9,7 @@ const LANGUAGE_VERSIONS = {
   },
   python: {
     language: "python",
-    versions: "3.10.0",
+    versions: "3.10",
   },
   java: {
     language: "java",
@@ -38,7 +38,7 @@ export async function executeCode(language, code) {
       },
       body: JSON.stringify({
         language: languageConfig.language,
-        version: languageConfig.version,
+        version: languageConfig.versions,
         files: [
           {
             name: `main.${getFileExtension(language)}`,
