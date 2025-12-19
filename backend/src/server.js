@@ -34,16 +34,17 @@ app.get("/health", (req, res) => {
 
 // when you pass an array of middleware to express, it automatically flattens and executes them sequentially one by one
 
-if (ENV.NODE_ENV=== "production") {
+if (process.env.NODE_ENV === "production") {
   const clientPath = path.join(__dirname, "../frontend/dist");
 
   app.use(express.static(clientPath));
 
-  // SPA fallback (THIS is the key)
-  app.get("*", (req, res) => {
+  // SPA fallback (Node 22 + Express safe)
+  app.get(/^(?!\/api).*/, (req, res) => {
     res.sendFile(path.join(clientPath, "index.html"));
   });
 }
+
 
 const startServer = async () => {
   try {
