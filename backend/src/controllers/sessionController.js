@@ -22,7 +22,7 @@ export async function createSession(req, res) {
       callId,
     });
     // create stream video call
-    await streamClient.video.call("default", callId).getOrCreate({
+    const videoCall=await streamClient.video.call("default", callId).getOrCreate({
       data: {
         created_by_id: clerkId,
         custom: {
@@ -59,7 +59,7 @@ export async function getActiveSessions(_, res) {
       .limit(20);
     res.status(200).json({ sessions });
   } catch (error) {
-    console.log("Error ingetActiveSessions controller:", error.message);
+    console.log("Error in getActiveSessions controller:", error.message);
     res.status(500).json({
       message: "Internal Server Error",
     });
